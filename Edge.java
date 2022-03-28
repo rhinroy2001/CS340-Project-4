@@ -9,7 +9,6 @@ public class Edge implements Comparable<Edge> {
         this.weight = weight;
     }
 
-    // check this method to make sure the condition is correct
     @Override
     public int compareTo(Edge edge) {
         if(this.weight > edge.weight){

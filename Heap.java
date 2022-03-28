@@ -15,12 +15,6 @@ public class Heap {
         location = new int[heapSize];
     }
 
-//    public Heap(Node[] a){
-//        heapSize = a.length;
-//        heap = a;
-//        location = new int[a.length];
-//    }
-
     public int parent(int i){
         return (i - 1) / 2;
     }
@@ -50,12 +44,6 @@ public class Heap {
             location[heap[significant].id] = significant;
             location[heap[i].id] = i;
             heapify(significant);
-        }
-    }
-
-    public void buildHeap(){
-        for(int i = (heapSize / 2) - 1; i >= 0; i--){
-            heapify(i);
         }
     }
 }
