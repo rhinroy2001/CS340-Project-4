@@ -7,15 +7,15 @@ public class PriorityQueue extends Heap{
     }
 
     public void insert(Node newNode){
-        heapSize++;
-        if(heapSize == 1) {
-            heap[heapSize - 1] = newNode;
-            location[heapSize - 1] = newNode.id;
+        if(this.isEmpty()) {
+            heap[heapSize] = newNode;
+            location[heapSize] = newNode.id;
         }else {
-            heap[heapSize - 1] = newNode;
-            location[heapSize - 1] = newNode.id;
-            decreaseKey(heapSize - 1);
+            heap[heapSize] = newNode;
+            location[heapSize] = newNode.id;
+            decreaseKey(heapSize);
         }
+        heapSize++;
     }
 
     public Node peek(){
@@ -23,10 +23,7 @@ public class PriorityQueue extends Heap{
     }
 
     public boolean isEmpty(){
-        if(heapSize == 0){
-            return true;
-        }
-        return false;
+            return heapSize == 0;
     }
 
     public void changeKey(int i, int k){
@@ -48,8 +45,8 @@ public class PriorityQueue extends Heap{
         return this.location[nodeName] != -1;
     }
 
-    public void decreaseKey(int id){
-        while( id > 0 && heap[id].compareTo(heap[parent(id)]) == 1){
+    public void decreaseKey(int i){
+        while( i > 0 && heap[i].compareTo(heap[parent(i)]) == 1){
 //            double temp1 = heap[parent(i)].key;
 //            heap[parent(i)].key = heap[i].key;
 //            heap[i].key = temp1;
@@ -59,12 +56,12 @@ public class PriorityQueue extends Heap{
 //            int temp2 = location[heap[parent(i)].id];
 //            location[heap[parent(i)].id] = location[heap[i].id];
 //            location[heap[i].id] = temp2;
-            Node temp = heap[id];
-            heap[id] = heap[parent(id)];
-            heap[parent(id)] = temp;
-            location[heap[parent(id)].id] = parent(id);
-            location[heap[id].id] = id;
-            id = parent(id);
+            Node temp = heap[i];
+            heap[i] = heap[parent(i)];
+            heap[parent(i)] = temp;
+            location[heap[parent(i)].id] = parent(i);
+            location[heap[i].id] = i;
+            i = parent(i);
 
         }
     }

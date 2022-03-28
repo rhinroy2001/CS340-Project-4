@@ -44,13 +44,8 @@ public class Graph {
         }
         nodes.get(root).key = 0;
         pq.decreaseKey(root);
-//        for(int i = 0; i < graph.size(); i ++){
-//            System.out.println(pq.extractMin().key);
-//        }
         while(!pq.isEmpty()){
             Node node = pq.extractMin();
-//            Node created = new Node(node.id);
-//            graphOut.nodes.add(created);
             if(node.parent != -1){
                 graphOut.addEdge(node.id, node.parent, node.key);
                 graphOut.addEdge(node.parent, node.id, node.key);
@@ -61,16 +56,10 @@ public class Graph {
                 if(pq.exists(v.id) && edge.weight < v.key){
                     v.parent = node.id;
                     v.key = edge.weight;
-//                    graphOut.addEdge(edge.u, edge.v, edge.weight);
+                    pq.decreaseKey(v.id);
                 }
-                pq.decreaseKey(v.id);
             }
         }
-//        Graph graphOut = new Graph();
-//        for(Node node : nodes){
-//            graphOut.addEdge(node.parent, node.id, node.key);
-//            graphOut.addEdge(node.id, node.parent, node.key);
-//        }
         return graphOut;
     }
 
