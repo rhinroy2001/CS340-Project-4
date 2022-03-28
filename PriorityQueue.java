@@ -62,7 +62,6 @@ public class PriorityQueue extends Heap{
             location[heap[parent(i)].id] = parent(i);
             location[heap[i].id] = i;
             i = parent(i);
-
         }
     }
 }

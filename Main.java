@@ -8,7 +8,8 @@ public class Main {
         String outputFilename = "/Users/ryanhagen/IdeaProjects/CS340-Project-4/primout.txt";
         Graph graph = readGraph(inputFilename);
 //        printGraph(graph);
-        printGraph(graph.prim(0));
+//        printGraph(graph.prim(0));
+        printGraph(graph.dijkstra(0));
 
         // Min Priority Queue test. It works!!
 //        PriorityQueue pq = new PriorityQueue(4);
@@ -57,8 +58,9 @@ public class Main {
     // finish
     public static void printGraph(Graph graphToPrint){
         for(int i = 0; i < graphToPrint.nodes.size(); i++) {
+            System.out.print(graphToPrint.nodes.get(i).id);
             for (int j = 0; j < graphToPrint.nodes.get(i).edges.size(); j++) {
-                System.out.print(graphToPrint.nodes.get(i).edges.get(j).u + " " + graphToPrint.nodes.get(i).edges.get(j).v + " " + graphToPrint.nodes.get(i).edges.get(j).weight + " ");
+                System.out.print( " " + graphToPrint.nodes.get(i).edges.get(j).v + " " + graphToPrint.nodes.get(i).edges.get(j).weight + " ");
             }
             System.out.println("");
         }

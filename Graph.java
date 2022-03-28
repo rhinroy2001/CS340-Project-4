@@ -63,7 +63,36 @@ public class Graph {
         return graphOut;
     }
 
-    public void dijkstra(int source){
-
+    public Graph dijkstra(int source){
+        double inf = Double.POSITIVE_INFINITY;
+        PriorityQueue pq = new PriorityQueue(nodes.size());
+        Graph graphOut = new Graph();
+        for(Node n : nodes){
+            n.key = inf;
+            n.parent = -1;
+            pq.insert(n);
+        }
+        nodes.get(source).key = 0;
+        while(!pq.isEmpty()){
+            Node node = pq.extractMin();
+            if(node.parent != -1){
+                graphOut.addEdge(node.id, node.parent, node.key);
+                graphOut.addEdge(node.parent, node.id, node.key);
+            }
+            for(Edge edge : node.edges){
+                Node v = nodes.get(indexOf(edge.v));
+                if(pq.exists(v.id) && edge.weight < v.key){
+                    if(edge.weight + v.id < v.key)
+                        v.parent = node.id;
+                        v.key = edge.weight + v.id;
+                        pq.decreaseKey(v.id);
+                }else{
+                    v.parent = node.id;
+                    v.key = edge.weight;
+                    pq.decreaseKey(v.id);
+                }
+            }
+        }
+        return graphOut;
     }
 }
