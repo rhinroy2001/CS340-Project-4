@@ -42,8 +42,7 @@ public class Graph {
             n.parent = -1;
             pq.insert(n);
         }
-        nodes.get(root).key = 0;
-        pq.decreaseKey(root);
+        pq.changeKey(root, 0);
         while(!pq.isEmpty()){
             Node node = pq.extractMin();
             if(node.parent != -1){
@@ -56,7 +55,7 @@ public class Graph {
                 if(pq.exists(v.id) && edge.weight < v.key){
                     v.parent = node.id;
                     v.key = edge.weight;
-                    pq.decreaseKey(v.id);
+                    pq.changeKey(v.id, v.key);
                 }
             }
         }
@@ -72,24 +71,20 @@ public class Graph {
             n.parent = -1;
             pq.insert(n);
         }
-        nodes.get(source).key = 0;
+        pq.changeKey(source, 0);
         while(!pq.isEmpty()){
-            Node node = pq.extractMin();
-            if(node.parent != -1){
-                graphOut.addEdge(node.id, node.parent, node.key);
-                graphOut.addEdge(node.parent, node.id, node.key);
+            Node u = pq.extractMin();
+            if(u.parent != -1){
+                graphOut.addEdge(u.id, u.parent, u.key);
+                graphOut.addEdge(u.parent, u.id, u.key);
             }
-            for(Edge edge : node.edges){
+            for(Edge edge : u.edges){
                 Node v = nodes.get(indexOf(edge.v));
-                if(pq.exists(v.id) && edge.weight < v.key){
-                    if(edge.weight + v.id < v.key)
-                        v.parent = node.id;
-                        v.key = edge.weight + v.id;
-                        pq.decreaseKey(v.id);
-                }else{
-                    v.parent = node.id;
-                    v.key = edge.weight;
-                    pq.decreaseKey(v.id);
+                double distance = u.key + edge.weight;
+                if(pq.exists(v.id) && distance < v.key) {
+                    v.key = distance;
+                    v.parent = u.id;
+                    pq.changeKey(v.id, v.key);
                 }
             }
         }

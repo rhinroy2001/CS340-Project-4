@@ -1,15 +1,19 @@
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws IOException {
         String inputFilename = "/Users/ryanhagen/IdeaProjects/CS340-Project-4/sample.txt";
-        String outputFilename = "/Users/ryanhagen/IdeaProjects/CS340-Project-4/primout.txt";
+        String outputPrims = "/Users/ryanhagen/IdeaProjects/CS340-Project-4/primout.txt";
+        String outputDijkstra = "/Users/ryanhagen/IdeaProjects/CS340-Project-4/dijkstraout.txt";
         Graph graph = readGraph(inputFilename);
 //        printGraph(graph);
-//        printGraph(graph.prim(0));
-        printGraph(graph.dijkstra(0));
+//        printGraph(graph.prim(3));
+        printGraph(graph.dijkstra(5));
 
         // Min Priority Queue test. It works!!
 //        PriorityQueue pq = new PriorityQueue(4);
@@ -57,12 +61,25 @@ public class Main {
 
     // finish
     public static void printGraph(Graph graphToPrint){
+        Collections.sort(graphToPrint.nodes, Comparator.comparing(Node::getId));
         for(int i = 0; i < graphToPrint.nodes.size(); i++) {
             System.out.print(graphToPrint.nodes.get(i).id);
             for (int j = 0; j < graphToPrint.nodes.get(i).edges.size(); j++) {
-                System.out.print( " " + graphToPrint.nodes.get(i).edges.get(j).v + " " + graphToPrint.nodes.get(i).edges.get(j).weight + " ");
+                System.out.print( " " + graphToPrint.nodes.get(i).edges.get(j).v + " " + graphToPrint.nodes.get(i).edges.get(j).weight);
             }
             System.out.println("");
+        }
+    }
+
+    public static void printGraph1(Graph graphToPrint, String filename) throws IOException {
+        File outputFile = new File(filename);
+        FileWriter writer = new FileWriter(outputFile);
+        for(int i = 0; i < graphToPrint.nodes.size(); i++) {
+            writer.write((graphToPrint.nodes.get(i).id));
+            for (int j = 0; j < graphToPrint.nodes.get(i).edges.size(); j++) {
+                writer.write(( " " + graphToPrint.nodes.get(i).edges.get(j).v + " " + graphToPrint.nodes.get(i).edges.get(j).weight + " "));
+            }
+            writer.write("\n");
         }
     }
 }

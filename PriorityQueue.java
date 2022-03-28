@@ -1,7 +1,6 @@
 public class PriorityQueue extends Heap{
     public PriorityQueue(int maxsize){
         super();
-        Heap pq = new Heap(maxsize);
         heapSize = 0;
         location = new int[maxsize];
     }
@@ -26,16 +25,16 @@ public class PriorityQueue extends Heap{
             return heapSize == 0;
     }
 
-    public void changeKey(int i, int k){
-        heap[i].key = k;
-        decreaseKey(i);
+    public void changeKey(int nodeId, double key){
+        int index = location[nodeId];
+        heap[index].key = key;
+        decreaseKey(index);
     }
 
     public Node extractMin(){
-        Node min = heap[0];
+        Node min = peek();
         location[heap[0].id] = -1;
         heap[0] = heap[heapSize - 1];
-        location[heap[0].id] = heap[0].id;
         heapSize--;
         heapify(0);
         return min;

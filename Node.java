@@ -12,6 +12,10 @@ public class Node implements Comparable<Node>{
         this.edges = new ArrayList<>();
     }
 
+    public int getId(){
+        return id;
+    }
+
 //    public void setKey(double key){
 //        this.key = key;
 //    }
