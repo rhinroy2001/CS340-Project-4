@@ -49,19 +49,28 @@ public class Graph {
 //        }
         while(!pq.isEmpty()){
             Node node = pq.extractMin();
-            Node created = new Node(node.id);
-            graphOut.nodes.add(created);
+//            Node created = new Node(node.id);
+//            graphOut.nodes.add(created);
+            if(node.parent != -1){
+                graphOut.addEdge(node.id, node.parent, node.key);
+                graphOut.addEdge(node.parent, node.id, node.key);
+            }
 
             for(Edge edge : node.edges){
                 Node v = nodes.get(indexOf(edge.v));
                 if(pq.exists(v.id) && edge.weight < v.key){
                     v.parent = node.id;
                     v.key = edge.weight;
-                    graphOut.addEdge(edge.u, edge.v, edge.weight);
-                    pq.decreaseKey(v.id);
+//                    graphOut.addEdge(edge.u, edge.v, edge.weight);
                 }
+                pq.decreaseKey(v.id);
             }
         }
+//        Graph graphOut = new Graph();
+//        for(Node node : nodes){
+//            graphOut.addEdge(node.parent, node.id, node.key);
+//            graphOut.addEdge(node.id, node.parent, node.key);
+//        }
         return graphOut;
     }
 
