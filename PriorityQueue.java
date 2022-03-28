@@ -46,15 +46,6 @@ public class PriorityQueue extends Heap{
 
     public void decreaseKey(int i){
         while( i > 0 && heap[i].compareTo(heap[parent(i)]) == 1){
-//            double temp1 = heap[parent(i)].key;
-//            heap[parent(i)].key = heap[i].key;
-//            heap[i].key = temp1;
-//            int temp3 = heap[parent(i)].id;
-//            heap[parent(i)].id = heap[i].id;
-//            heap[i].id = temp3;
-//            int temp2 = location[heap[parent(i)].id];
-//            location[heap[parent(i)].id] = location[heap[i].id];
-//            location[heap[i].id] = temp2;
             Node temp = heap[i];
             heap[i] = heap[parent(i)];
             heap[parent(i)] = temp;

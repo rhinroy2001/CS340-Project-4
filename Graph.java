@@ -6,10 +6,6 @@ public class Graph {
         this.nodes = new ArrayList<>();
     }
 
-    public Graph(ArrayList<Node> nodes){
-        this.nodes = nodes;
-    }
-
     public void addEdge(int u, int v, double weight) {
         int index = indexOf(u);
         if(index == -1){
@@ -27,11 +23,6 @@ public class Graph {
         }
         return -1;
     }
-
-//    public void addNode(int id){
-//        Node node = new Node(id);
-//        graph.add(node);
-//    }
 
     public Graph prim(int root){
         double inf = Double.POSITIVE_INFINITY;
@@ -66,10 +57,10 @@ public class Graph {
         double inf = Double.POSITIVE_INFINITY;
         PriorityQueue pq = new PriorityQueue(nodes.size());
         Graph graphOut = new Graph();
-        for(Node n : nodes){
-            n.key = inf;
-            n.parent = -1;
-            pq.insert(n);
+        for(Node u : nodes){
+            u.key = inf;
+            u.parent = -1;
+            pq.insert(u);
         }
         pq.changeKey(source, 0);
         while(!pq.isEmpty()){
